@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketTimer", "TicketTimer\TicketTimer.csproj", "{87FC5374-7E6C-4085-A003-8D36C34476BC}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketTimer.Youtrack", "TicketTimer.Youtrack\TicketTimer.Youtrack.csproj", "{21C20ED1-3179-4822-BA0A-AF58AEC3E0A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketTimer.Core", "TicketTimer.Core\TicketTimer.Core.csproj", "{9EB0FB65-4079-42B8-9F49-95D4BA6660E5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketTimer.Core.Tests", "TicketTimer.Core.Tests\TicketTimer.Core.Tests.csproj", "{069FDD2A-4834-48BE-AACF-D5B54A6D8F8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9EB0FB65-4079-42B8-9F49-95D4BA6660E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EB0FB65-4079-42B8-9F49-95D4BA6660E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EB0FB65-4079-42B8-9F49-95D4BA6660E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{069FDD2A-4834-48BE-AACF-D5B54A6D8F8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{069FDD2A-4834-48BE-AACF-D5B54A6D8F8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{069FDD2A-4834-48BE-AACF-D5B54A6D8F8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{069FDD2A-4834-48BE-AACF-D5B54A6D8F8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
