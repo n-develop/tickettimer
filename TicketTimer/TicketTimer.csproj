@@ -54,10 +54,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\CommandsConfiguration.cs" />
-    <Compile Include="Configuration\Models\CommandElement.cs" />
-    <Compile Include="Configuration\Models\CommandsCollection.cs" />
+    <Compile Include="Configuration\Model\CommandElement.cs" />
+    <Compile Include="Configuration\Model\CommandsCollection.cs" />
     <Compile Include="Configuration\ConfigurationLoader.cs" />
-    <Compile Include="Configuration\Models\TicketTimerSection.cs" />
+    <Compile Include="Configuration\Model\TicketTimerSection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
