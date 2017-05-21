@@ -6,6 +6,8 @@ namespace TicketTimer.Core.Tests
 {
     public class JsonWorkItemStoreTests
     {
+        // TODO Tests for I/O-Errors
+
         [Fact]
         public void WorkStoreWithOneItem_CreatesCorrectJson()
         {
