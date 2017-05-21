@@ -11,6 +11,7 @@ namespace TicketTimer.Core
         public JsonWorkItemStore(FileStore fileStore)
         {
             _fileStore = fileStore;
+            Load();
         }
 
 
