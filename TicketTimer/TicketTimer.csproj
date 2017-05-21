@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Configuration\CommandElement.cs" />
     <Compile Include="Configuration\CommandsCollection.cs" />
+    <Compile Include="Configuration\ConfigurationLoader.cs" />
     <Compile Include="Configuration\TicketTimerSection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
