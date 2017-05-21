@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Linq;
 
-namespace TicketTimer.Configuration
+namespace TicketTimer.Configuration.Model
 {
     public class CommandsCollection : ConfigurationElementCollection, IEnumerable<CommandElement>
     {

@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace TicketTimer.Configuration
+namespace TicketTimer.Configuration.Model
 {
     public class TicketTimerSection : ConfigurationSection
     {
