@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using TicketTimer.Core.Infrastructure;
 
 namespace TicketTimer.Core.Tests.Mocks
 {

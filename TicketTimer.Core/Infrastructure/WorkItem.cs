@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TicketTimer.Core
+namespace TicketTimer.Core.Infrastructure
 {
     public class WorkItem
     {

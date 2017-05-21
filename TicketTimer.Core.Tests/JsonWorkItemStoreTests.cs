@@ -1,4 +1,5 @@
 ﻿using System;
+using TicketTimer.Core.Infrastructure;
 using TicketTimer.Core.Tests.Mocks;
 using Xunit;
 

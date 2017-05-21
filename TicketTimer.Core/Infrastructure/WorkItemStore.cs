@@ -1,4 +1,4 @@
-﻿namespace TicketTimer.Core
+﻿namespace TicketTimer.Core.Infrastructure
 {
     public interface WorkItemStore
     {

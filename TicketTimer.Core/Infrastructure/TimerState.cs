@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TicketTimer.Core
+namespace TicketTimer.Core.Infrastructure
 {
     public class TimerState
     {
