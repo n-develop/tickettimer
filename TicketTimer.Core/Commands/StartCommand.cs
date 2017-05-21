@@ -15,7 +15,6 @@ namespace TicketTimer.Core.Commands
             HasRequiredOption("t|ticket=", "Ticket number e.g. BDP-301", ticket => _ticket = ticket);
 
             HasOption("c|comment=", "What are you working on?", comment => _comment = comment);
-
         }
 
         public override int Run(string[] remainingArguments)
