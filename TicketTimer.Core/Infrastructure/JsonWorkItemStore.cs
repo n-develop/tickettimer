@@ -14,18 +14,10 @@ namespace TicketTimer.Core.Infrastructure
             Load();
         }
 
-
-        public void Add(WorkItem workItem)
+        public void AddToArchive(WorkItem workItem)
         {
-            if (_state == null)
-            {
-                Load();
-            }
-            if (_state.WorkItems.Contains(workItem))
-            {
-                _state.WorkItems.Remove(workItem);
-            }
-            _state.WorkItems.Add(workItem);
+            GetState().WorkItemArchive.Add(workItem);
+            Save();
         }
 
         public TimerState GetState()
@@ -37,13 +29,13 @@ namespace TicketTimer.Core.Infrastructure
             return _state;
         }
 
-        public void Save()
+        private void Save()
         {
             var json = JsonConvert.SerializeObject(_state);
             _fileStore.WriteFile(json, FileName);
         }
 
-        public void Load()
+        private void Load()
         {
             var json = _fileStore.ReadFile(FileName);
             if (!string.IsNullOrEmpty(json))
@@ -54,6 +46,12 @@ namespace TicketTimer.Core.Infrastructure
             {
                 _state = new TimerState();
             }
+        }
+
+        public void SetCurrent(WorkItem workItem)
+        {
+            GetState().CurrentWorkItem = workItem;
+            Save();
         }
     }
 }

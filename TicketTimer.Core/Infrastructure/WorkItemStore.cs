@@ -2,12 +2,10 @@
 {
     public interface WorkItemStore
     {
-        void Add(WorkItem workItem);
+        void AddToArchive(WorkItem workItem);
 
         TimerState GetState();
 
-        void Save();
-
-        void Load();
+        void SetCurrent(WorkItem workItem);
     }
 }

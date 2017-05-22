@@ -17,7 +17,7 @@ namespace TicketTimer.Core.Infrastructure
 
         public string Comment { get; set; }
 
-        public static WorkItem Empty => new WorkItem("- no ticket -");
+        public static WorkItem Empty => new WorkItem("- no ticket -") { Comment = string.Empty };
 
         public override bool Equals(object obj)
         {
@@ -33,6 +33,20 @@ namespace TicketTimer.Core.Infrastructure
         public override int GetHashCode()
         {
             return TicketNumber.GetHashCode();
+        }
+
+        public static bool operator ==(WorkItem first, WorkItem second)
+        {
+            if (first == null || second == null)
+            {
+                return false;
+            }
+
+            return first.Equals(second);
+        }
+        public static bool operator !=(WorkItem first, WorkItem second)
+        {
+            return !(first == second);
         }
     }
 }

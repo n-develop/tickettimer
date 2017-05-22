@@ -6,9 +6,12 @@ namespace TicketTimer.Core.Infrastructure
     {
         public TimerState()
         {
-            WorkItems = new List<WorkItem>();
+            WorkItemArchive = new List<WorkItem>();
+            CurrentWorkItem = WorkItem.Empty;
         }
 
-        public List<WorkItem> WorkItems { get; set; }
+        public WorkItem CurrentWorkItem { get; set; }
+
+        public List<WorkItem> WorkItemArchive { get; set; }
     }
 }

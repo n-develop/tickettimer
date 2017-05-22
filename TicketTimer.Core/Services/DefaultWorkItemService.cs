@@ -17,19 +17,19 @@ namespace TicketTimer.Core.Services
 
         public void StartWorkItem(WorkItem workItem)
         {
-            var currentWorkItem = GetCurrentWorkItem();
-            if (currentWorkItem != null)
+            var currentWorkItem = _workItemStore.GetState().CurrentWorkItem;
+            if (currentWorkItem != WorkItem.Empty)
             {
                 currentWorkItem.Stopped = _dateProvider.Now;
             }
-            _workItemStore.Add(workItem);
-            _workItemStore.Save();
+            _workItemStore.AddToArchive(currentWorkItem);
+            _workItemStore.SetCurrent(workItem);
         }
 
         public WorkItem GetCurrentWorkItem()
         {
             var currentState = _workItemStore.GetState();
-            var currentWorkItem = currentState.WorkItems.SingleOrDefault(item => item.Stopped == DateTime.MinValue);
+            var currentWorkItem = currentState.WorkItemArchive.SingleOrDefault(item => item.Stopped == DateTime.MinValue);
             if (currentWorkItem == null)
             {
                 return WorkItem.Empty;
