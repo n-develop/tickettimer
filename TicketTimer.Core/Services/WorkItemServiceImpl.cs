@@ -27,6 +27,7 @@ namespace TicketTimer.Core.Services
                 Started = _dateProvider.Now
             };
             _workItemStore.Add(workItem);
+            _workItemStore.Save();
         }
 
         public void StopWorkItem()
