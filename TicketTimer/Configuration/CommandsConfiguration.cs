@@ -1,4 +1,5 @@
-﻿using ManyConsole;
+﻿using Autofac;
+using ManyConsole;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,24 +9,25 @@ namespace TicketTimer.Configuration
 {
     class CommandsConfiguration
     {
-        public static IList<ConsoleCommand> GetCommandsFromConfig()
+        // TODO remove "static" and make this a proper class
+        public static IList<ConsoleCommand> GetCommandsFromConfig(IContainer container)
         {
             var types = GetTypesFromConfiguration();
 
             var commandTypes = types.Where(t => t.IsSubclassOf(typeof(ConsoleCommand)) && !t.IsAbstract).ToList();
-            var commands = GetCommandsFromTypes(commandTypes);
+            var commands = GetCommandsFromContainer(container, commandTypes);
             return commands;
         }
 
-        private static IList<ConsoleCommand> GetCommandsFromTypes(List<Type> commandTypes)
+        private static IList<ConsoleCommand> GetCommandsFromContainer(IContainer container, IEnumerable<Type> commandTypes)
         {
             var consoleCommands = new List<ConsoleCommand>();
             foreach (var type in commandTypes)
             {
-                var constructor = type.GetConstructor(new Type[0]);
-                if (constructor != null)
+                var command = container.Resolve(type) as ConsoleCommand;
+                if (command != null)
                 {
-                    consoleCommands.Add((ConsoleCommand)constructor.Invoke(new object[0]));
+                    consoleCommands.Add(command);
                 }
             }
             return consoleCommands;

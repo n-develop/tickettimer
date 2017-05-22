@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using TicketTimer.Core.Commands;
 using TicketTimer.Core.Infrastructure;
 using TicketTimer.Core.Services;
 
@@ -12,6 +13,8 @@ namespace TicketTimer.Core
             builder.RegisterType<LocalFileStore>().As<FileStore>();
             builder.RegisterType<LocalDateProvider>().As<DateProvider>();
             builder.RegisterType<WorkItemServiceImpl>().As<WorkItemService>();
+
+            builder.RegisterType<StartCommand>().AsSelf();
 
             base.Load(builder);
         }

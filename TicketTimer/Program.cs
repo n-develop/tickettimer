@@ -8,7 +8,9 @@ namespace TicketTimer
     {
         static int Main(string[] args)
         {
-            var commands = CommandsConfiguration.GetCommandsFromConfig();
+            var container = AutofacConfig.ConfigureContainer();
+
+            var commands = CommandsConfiguration.GetCommandsFromConfig(container);
 
             return ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out);
         }

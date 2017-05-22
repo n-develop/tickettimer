@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutofacConfig.cs" />
     <Compile Include="Configuration\CommandsConfiguration.cs" />
     <Compile Include="Configuration\Model\CommandElement.cs" />
     <Compile Include="Configuration\Model\CommandsCollection.cs" />
