@@ -37,7 +37,7 @@ namespace TicketTimer.Core.Infrastructure
 
         public static bool operator ==(WorkItem first, WorkItem second)
         {
-            if (first == null || second == null)
+            if ((object)first == null || (object)second == null)
             {
                 return false;
             }

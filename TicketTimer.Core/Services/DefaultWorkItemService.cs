@@ -21,8 +21,8 @@ namespace TicketTimer.Core.Services
             if (currentWorkItem != WorkItem.Empty)
             {
                 currentWorkItem.Stopped = _dateProvider.Now;
+                _workItemStore.AddToArchive(currentWorkItem);
             }
-            _workItemStore.AddToArchive(currentWorkItem);
             _workItemStore.SetCurrent(workItem);
         }
 
