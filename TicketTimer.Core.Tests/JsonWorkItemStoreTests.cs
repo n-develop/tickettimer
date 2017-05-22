@@ -14,12 +14,11 @@ namespace TicketTimer.Core.Tests
         {
             var memoryFileStore = new MemoryFileStore();
             var workItemStore = new JsonWorkItemStore(memoryFileStore);
-            workItemStore.Add(new WorkItem
+            workItemStore.Add(new WorkItem("BDP-1301")
             {
                 Comment = "",
                 Started = new DateTime(2017, 5, 1, 11, 0, 0),
-                Stopped = new DateTime(2017, 5, 1, 12, 0, 0),
-                TicketNumber = "BDP-1301"
+                Stopped = new DateTime(2017, 5, 1, 12, 0, 0)
             });
             workItemStore.Save();
 
@@ -46,20 +45,18 @@ namespace TicketTimer.Core.Tests
         {
             var memoryFileStore = new MemoryFileStore();
             var workItemStore = new JsonWorkItemStore(memoryFileStore);
-            workItemStore.Add(new WorkItem
+            workItemStore.Add(new WorkItem("BDP-1301")
             {
                 Comment = "",
                 Started = new DateTime(2017, 5, 1, 11, 0, 0),
-                Stopped = new DateTime(2017, 5, 1, 12, 0, 0),
-                TicketNumber = "BDP-1301"
+                Stopped = new DateTime(2017, 5, 1, 12, 0, 0)
             });
 
-            workItemStore.Add(new WorkItem
+            workItemStore.Add(new WorkItem("BDP-1302")
             {
                 Comment = "abc",
                 Started = new DateTime(2017, 5, 2, 13, 0, 0),
-                Stopped = new DateTime(2017, 5, 2, 14, 0, 0),
-                TicketNumber = "BDP-1302"
+                Stopped = new DateTime(2017, 5, 2, 14, 0, 0)
             });
 
             workItemStore.Save();
