@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using TicketTimer.Core.Infrastructure;
 
 namespace TicketTimer.Core.Services
@@ -28,6 +30,17 @@ namespace TicketTimer.Core.Services
             };
             _workItemStore.Add(workItem);
             _workItemStore.Save();
+        }
+
+        public WorkItem GetCurrentWorkItem()
+        {
+            var currentState = _workItemStore.GetState();
+            var currentWorkItem = currentState.WorkItems.SingleOrDefault(wi => wi.Stopped == DateTime.MinValue);
+            if (currentWorkItem == null)
+            {
+                return WorkItem.Empty;
+            }
+            return currentWorkItem;
         }
 
         public void StopWorkItem()
