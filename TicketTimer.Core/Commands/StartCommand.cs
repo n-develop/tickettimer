@@ -1,5 +1,6 @@
 ﻿using ManyConsole;
 using System;
+using TicketTimer.Core.Infrastructure;
 using TicketTimer.Core.Services;
 
 namespace TicketTimer.Core.Commands
@@ -7,14 +8,16 @@ namespace TicketTimer.Core.Commands
     public class StartCommand : ConsoleCommand
     {
         private readonly WorkItemService _workItemService;
+        private readonly DateProvider _dateProvider;
         private string _ticket;
         private string _comment;
 
-        public StartCommand(WorkItemService workItemService)
+        public StartCommand(WorkItemService workItemService, DateProvider dateProvider)
         {
             ConfigureCommand();
 
             _workItemService = workItemService;
+            _dateProvider = dateProvider;
         }
 
         private void ConfigureCommand()
@@ -26,8 +29,15 @@ namespace TicketTimer.Core.Commands
 
         public override int Run(string[] remainingArguments)
         {
-            Console.WriteLine($"Starting work on ticket {_ticket} with comment '{_comment}'");
-            _workItemService.StartWorkItem(_ticket, _comment);
+            Console.WriteLine($"Starting work on ticket {_ticket} with comment '{_comment}' at '{_dateProvider.Now.ToShortTimeString()}'");
+
+            var workItem = new WorkItem(_ticket)
+            {
+                Comment = _comment,
+                Started = _dateProvider.Now
+            };
+
+            _workItemService.StartWorkItem(workItem);
             return 0;
         }
     }

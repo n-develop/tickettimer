@@ -1,9 +1,10 @@
-﻿namespace TicketTimer.Core.Services
+﻿using TicketTimer.Core.Infrastructure;
+
+namespace TicketTimer.Core.Services
 {
     public interface WorkItemService
     {
-        void StartWorkItem(string ticketNumber, string comment);
-        void StartWorkItem(string ticketNumber);
+        void StartWorkItem(WorkItem workItem);
         void StopWorkItem();
     }
 }

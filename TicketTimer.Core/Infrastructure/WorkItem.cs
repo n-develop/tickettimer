@@ -17,13 +17,7 @@ namespace TicketTimer.Core.Infrastructure
 
         public string Comment { get; set; }
 
-        public static WorkItem Empty
-        {
-            get
-            {
-                return new WorkItem("- no ticket -");
-            }
-        }
+        public static WorkItem Empty => new WorkItem("- no ticket -");
 
         public override bool Equals(object obj)
         {
