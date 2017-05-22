@@ -4,6 +4,11 @@ namespace TicketTimer.Core.Infrastructure
 {
     public class WorkItem
     {
+        public WorkItem(string ticketNumber)
+        {
+            TicketNumber = ticketNumber;
+        }
+
         public string TicketNumber { get; set; }
 
         public DateTime Started { get; set; }

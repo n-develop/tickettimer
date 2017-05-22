@@ -19,7 +19,8 @@ namespace TicketTimer.Core.Commands
 
         public override int Run(string[] remainingArguments)
         {
-            Console.WriteLine($"You are '{_comment}' on ticket '{_ticket}'");
+            Console.WriteLine($"Starting work on ticket {_ticket} with comment '{_comment}'");
+
             return 0;
         }
     }
