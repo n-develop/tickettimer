@@ -7,14 +7,21 @@ namespace TicketTimer.Core.Services
     public class DefaultWorkItemService : WorkItemService
     {
         private readonly WorkItemStore _workItemStore;
+        private readonly DateProvider _dateProvider;
 
-        public DefaultWorkItemService(WorkItemStore workItemStore)
+        public DefaultWorkItemService(WorkItemStore workItemStore, DateProvider dateProvider)
         {
             _workItemStore = workItemStore;
+            _dateProvider = dateProvider;
         }
 
         public void StartWorkItem(WorkItem workItem)
         {
+            var currentWorkItem = GetCurrentWorkItem();
+            if (currentWorkItem != null)
+            {
+                currentWorkItem.Stopped = _dateProvider.Now;
+            }
             _workItemStore.Add(workItem);
             _workItemStore.Save();
         }
@@ -22,7 +29,7 @@ namespace TicketTimer.Core.Services
         public WorkItem GetCurrentWorkItem()
         {
             var currentState = _workItemStore.GetState();
-            var currentWorkItem = currentState.WorkItems.SingleOrDefault(wi => wi.Stopped == DateTime.MinValue);
+            var currentWorkItem = currentState.WorkItems.SingleOrDefault(item => item.Stopped == DateTime.MinValue);
             if (currentWorkItem == null)
             {
                 return WorkItem.Empty;

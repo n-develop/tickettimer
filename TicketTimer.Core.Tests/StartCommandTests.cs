@@ -15,7 +15,7 @@ namespace TicketTimer.Core.Tests
         {
             using (StringWriter consoleOutput = new StringWriter())
             {
-                var command = new StartCommand(new DefaultWorkItemService(new JsonWorkItemStore(new MemoryFileStore())), new LocalDateProvider());
+                var command = new StartCommand(new DefaultWorkItemService(new JsonWorkItemStore(new MemoryFileStore()), new LocalDateProvider()), new LocalDateProvider());
                 Console.SetOut(consoleOutput);
                 command.Run(null);
                 Assert.Equal("You are '' on ticket ''\r\n", consoleOutput.ToString());

@@ -21,6 +21,10 @@ namespace TicketTimer.Core.Infrastructure
             {
                 Load();
             }
+            if (_state.WorkItems.Contains(workItem))
+            {
+                _state.WorkItems.Remove(workItem);
+            }
             _state.WorkItems.Add(workItem);
         }
 
