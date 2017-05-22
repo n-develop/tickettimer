@@ -1,5 +1,4 @@
 ﻿using ManyConsole;
-using System;
 using TicketTimer.Core.Infrastructure;
 using TicketTimer.Core.Services;
 
@@ -29,7 +28,6 @@ namespace TicketTimer.Core.Commands
 
         public override int Run(string[] remainingArguments)
         {
-            Console.WriteLine($"Starting work on ticket {_ticket} with comment '{_comment}' at '{_dateProvider.Now.ToShortTimeString()}'");
 
             var workItem = new WorkItem(_ticket)
             {

@@ -17,13 +17,11 @@ namespace TicketTimer.Core.Services
 
         public void StartWorkItem(WorkItem workItem)
         {
-            var currentWorkItem = _workItemStore.GetState().CurrentWorkItem;
-            if (currentWorkItem != WorkItem.Empty)
-            {
-                currentWorkItem.Stopped = _dateProvider.Now;
-                _workItemStore.AddToArchive(currentWorkItem);
-            }
+            StopCurrentWorkItem();
+
             _workItemStore.SetCurrent(workItem);
+
+            Console.WriteLine($"Starting work on ticket {workItem.TicketNumber} with comment '{workItem.Comment}' at '{workItem.Started.ToShortTimeString()}'");
         }
 
         public WorkItem GetCurrentWorkItem()
@@ -37,9 +35,17 @@ namespace TicketTimer.Core.Services
             return currentWorkItem;
         }
 
-        public void StopWorkItem()
+        public void StopCurrentWorkItem()
         {
-            throw new System.NotImplementedException();
+            var currentWorkItem = _workItemStore.GetState().CurrentWorkItem;
+            if (currentWorkItem != WorkItem.Empty)
+            {
+                currentWorkItem.Stopped = _dateProvider.Now;
+                _workItemStore.AddToArchive(currentWorkItem);
+                _workItemStore.SetCurrent(WorkItem.Empty);
+                Console.WriteLine($"Stopped work on ticket {currentWorkItem.TicketNumber} with comment '{currentWorkItem.Comment}' at '{currentWorkItem.Stopped.ToShortTimeString()}' after {currentWorkItem.Duration}");
+            }
+
         }
     }
 }

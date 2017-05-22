@@ -5,6 +5,6 @@ namespace TicketTimer.Core.Services
     public interface WorkItemService
     {
         void StartWorkItem(WorkItem workItem);
-        void StopWorkItem();
+        void StopCurrentWorkItem();
     }
 }
