@@ -4,12 +4,11 @@ using TicketTimer.Core.Infrastructure;
 
 namespace TicketTimer.Core.Services
 {
-    // TODO this should have a better name
-    public class WorkItemServiceImpl : WorkItemService
+    public class DefaultWorkItemService : WorkItemService
     {
         private readonly WorkItemStore _workItemStore;
 
-        public WorkItemServiceImpl(WorkItemStore workItemStore)
+        public DefaultWorkItemService(WorkItemStore workItemStore)
         {
             _workItemStore = workItemStore;
         }

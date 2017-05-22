@@ -12,7 +12,7 @@ namespace TicketTimer.Core
             builder.RegisterType<JsonWorkItemStore>().As<WorkItemStore>();
             builder.RegisterType<LocalFileStore>().As<FileStore>();
             builder.RegisterType<LocalDateProvider>().As<DateProvider>();
-            builder.RegisterType<WorkItemServiceImpl>().As<WorkItemService>();
+            builder.RegisterType<DefaultWorkItemService>().As<WorkItemService>();
 
             builder.RegisterType<StartCommand>().AsSelf();
 
