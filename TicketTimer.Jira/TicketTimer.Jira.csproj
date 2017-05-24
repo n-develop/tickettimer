@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\SendToJiraCommand.cs" />
+    <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="JiraModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\JiraService.cs" />

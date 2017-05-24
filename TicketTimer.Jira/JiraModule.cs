@@ -6,6 +6,7 @@ namespace TicketTimer.Jira
 {
     public class JiraModule : Autofac.Module
     {
+        // TODO make it possible to load this module via configuration (new section)
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<JiraService>().AsSelf();
