@@ -5,7 +5,7 @@ using TicketTimer.Core.Services;
 
 namespace TicketTimer.Core
 {
-    public class CoreModule : Autofac.Module
+    public class CoreModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
