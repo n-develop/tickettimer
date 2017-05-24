@@ -15,6 +15,7 @@ namespace TicketTimer.Core
             builder.RegisterType<DefaultWorkItemService>().As<WorkItemService>();
 
             builder.RegisterType<StartCommand>().AsSelf();
+            builder.RegisterType<StopCommand>().AsSelf();
 
             base.Load(builder);
         }

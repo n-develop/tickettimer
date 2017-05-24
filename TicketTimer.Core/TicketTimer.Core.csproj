@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\StartCommand.cs" />
+    <Compile Include="Commands\StopCommand.cs" />
     <Compile Include="CoreModule.cs" />
     <Compile Include="Infrastructure\JsonWorkItemStore.cs" />
     <Compile Include="Infrastructure\LocalFileStore.cs" />

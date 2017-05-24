@@ -28,7 +28,6 @@ namespace TicketTimer.Core.Commands
 
         public override int Run(string[] remainingArguments)
         {
-
             var workItem = new WorkItem(_ticket)
             {
                 Comment = _comment,

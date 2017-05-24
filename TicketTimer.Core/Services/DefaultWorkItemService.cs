@@ -17,7 +17,10 @@ namespace TicketTimer.Core.Services
 
         public void StartWorkItem(WorkItem workItem)
         {
-            StopCurrentWorkItem();
+            if (_workItemStore.GetState().CurrentWorkItem != WorkItem.Empty)
+            {
+                StopCurrentWorkItem();
+            }
 
             _workItemStore.SetCurrent(workItem);
 
@@ -43,9 +46,13 @@ namespace TicketTimer.Core.Services
                 currentWorkItem.Stopped = _dateProvider.Now;
                 _workItemStore.AddToArchive(currentWorkItem);
                 _workItemStore.SetCurrent(WorkItem.Empty);
-                Console.WriteLine($"Stopped work on ticket {currentWorkItem.TicketNumber} with comment '{currentWorkItem.Comment}' at '{currentWorkItem.Stopped.ToShortTimeString()}' after {currentWorkItem.Duration}");
+                Console.WriteLine(
+                    $"Stopped work on ticket {currentWorkItem.TicketNumber} with comment '{currentWorkItem.Comment}' at '{currentWorkItem.Stopped.ToShortTimeString()}' after {currentWorkItem.Duration}");
             }
-
+            else
+            {
+                Console.WriteLine("There is no ticket in progress.");
+            }
         }
     }
 }
