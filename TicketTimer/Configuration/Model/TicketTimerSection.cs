@@ -19,12 +19,12 @@ namespace TicketTimer.Configuration.Model
         }
 
         [ConfigurationProperty("modules", DefaultValue = null, IsRequired = true)]
-        [ConfigurationCollection(typeof(CommandsCollection), AddItemName = "add", ClearItemsName = "clear", RemoveItemName = "remove")]
-        public CommandsCollection Modules
+        [ConfigurationCollection(typeof(ModuleCollection), AddItemName = "add", ClearItemsName = "clear", RemoveItemName = "remove")]
+        public ModuleCollection Modules
         {
             get
             {
-                return (CommandsCollection)this["modules"];
+                return (ModuleCollection)this["modules"];
             }
             set
             {

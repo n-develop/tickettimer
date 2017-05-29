@@ -4,6 +4,7 @@ using TicketTimer.Jira.Extensions;
 
 namespace TicketTimer.Jira.Services
 {
+    // TODO introduce interface for better testability
     public class JiraService
     {
         private readonly WorkItemStore _workItemStore;

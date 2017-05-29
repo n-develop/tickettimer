@@ -1,4 +1,5 @@
-﻿using ManyConsole;
+﻿using System;
+using ManyConsole;
 using TicketTimer.Jira.Services;
 
 namespace TicketTimer.Jira.Commands
@@ -20,6 +21,8 @@ namespace TicketTimer.Jira.Commands
 
         public override int Run(string[] remainingArguments)
         {
+            // TODO use JiraService here.
+            Console.WriteLine("You logged your time!");
             return 0;
         }
     }

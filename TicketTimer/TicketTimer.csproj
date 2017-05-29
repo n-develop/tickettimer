@@ -61,6 +61,7 @@
     <Compile Include="Configuration\Model\ModuleCollection.cs" />
     <Compile Include="Configuration\Model\ModuleElement.cs" />
     <Compile Include="Configuration\Model\TicketTimerSection.cs" />
+    <Compile Include="Configuration\ModulesConfiguration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
