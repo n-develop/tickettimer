@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using TicketTimer.Core.Extensions;
 using TicketTimer.Core.Infrastructure;
 
 namespace TicketTimer.Core.Services
@@ -67,6 +68,26 @@ namespace TicketTimer.Core.Services
             {
                 Console.WriteLine("There is no ticket in progress.");
             }
+        }
+
+        public void ShowArchive()
+        {
+            var archive = _workItemStore.GetState().WorkItemArchive;
+            foreach (var workItem in archive)
+            {
+                PrintWorkItem(workItem);
+            }
+        }
+
+        private void PrintWorkItem(WorkItem workItem)
+        {
+            var comment = workItem.Comment;
+            if (comment.Length > 40)
+            {
+                comment = comment.Substring(0, 36) + "...";
+            }
+            var duration = workItem.Duration.ToShortString();
+            Console.WriteLine($"|{workItem.TicketNumber,10}|{comment,40}|{duration,10}|");
         }
     }
 }

@@ -57,6 +57,7 @@
     <Compile Include="Commands\StatusCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
     <Compile Include="CoreModule.cs" />
+    <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="Infrastructure\JsonWorkItemStore.cs" />
     <Compile Include="Infrastructure\LocalFileStore.cs" />
     <Compile Include="Infrastructure\FileStore.cs" />

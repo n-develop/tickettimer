@@ -1,5 +1,4 @@
-﻿using System;
-using ManyConsole;
+﻿using ManyConsole;
 using TicketTimer.Core.Services;
 
 namespace TicketTimer.Core.Commands
@@ -21,8 +20,7 @@ namespace TicketTimer.Core.Commands
 
         public override int Run(string[] remainingArguments)
         {
-            //TODO correct service call
-            Console.WriteLine("Show them all!");
+            _workItemService.ShowArchive();
             return 0;
         }
     }
