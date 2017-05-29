@@ -4,7 +4,7 @@ using TicketTimer.Jira.Services;
 
 namespace TicketTimer.Jira
 {
-    public class JiraModule : Autofac.Module
+    public class JiraModule : Module
     {
         // TODO make it possible to load this module via configuration (new section)
         protected override void Load(ContainerBuilder builder)
