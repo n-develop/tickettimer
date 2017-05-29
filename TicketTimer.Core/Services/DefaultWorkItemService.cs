@@ -54,5 +54,19 @@ namespace TicketTimer.Core.Services
                 Console.WriteLine("There is no ticket in progress.");
             }
         }
+
+        public void ShowStatus()
+        {
+            var currentWorkItem = _workItemStore.GetState().CurrentWorkItem;
+            if (currentWorkItem != WorkItem.Empty)
+            {
+                var duration = _dateProvider.Now - currentWorkItem.Started;
+                Console.WriteLine($"You are working on {currentWorkItem.TicketNumber} ({currentWorkItem.Comment}) for {duration}");
+            }
+            else
+            {
+                Console.WriteLine("There is no ticket in progress.");
+            }
+        }
     }
 }

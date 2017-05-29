@@ -6,5 +6,6 @@ namespace TicketTimer.Core.Services
     {
         void StartWorkItem(WorkItem workItem);
         void StopCurrentWorkItem();
+        void ShowStatus();
     }
 }
