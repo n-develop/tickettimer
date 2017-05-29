@@ -1,8 +1,8 @@
-﻿using Autofac;
-using ManyConsole;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Autofac;
+using ManyConsole;
 using TicketTimer.Configuration.Model;
 
 namespace TicketTimer.Configuration
@@ -55,7 +55,14 @@ namespace TicketTimer.Configuration
                 try
                 {
                     var commandType = Type.GetType(commandElement.Type);
-                    types.Add(commandType);
+                    if (commandType != null)
+                    {
+                        types.Add(commandType);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"WARNING: Could not load '{commandElement.Type}' as a type.");
+                    }
                 }
                 catch (Exception exception)
                 {

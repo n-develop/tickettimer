@@ -53,7 +53,14 @@ namespace TicketTimer.Configuration
                 try
                 {
                     var moduleType = Type.GetType(moduleElement.Type);
-                    types.Add(moduleType);
+                    if (moduleType != null)
+                    {
+                        types.Add(moduleType);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"WARNING: Could not load '{moduleElement.Type}' as a type.");
+                    }
                 }
                 catch (Exception exception)
                 {
