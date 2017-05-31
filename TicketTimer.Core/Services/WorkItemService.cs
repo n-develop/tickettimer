@@ -8,5 +8,6 @@ namespace TicketTimer.Core.Services
         void StopCurrentWorkItem();
         void ShowStatus();
         void ShowArchive();
+        void Clear();
     }
 }

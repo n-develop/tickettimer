@@ -7,5 +7,7 @@
         TimerState GetState();
 
         void SetCurrent(WorkItem workItem);
+
+        void ClearArchive();
     }
 }

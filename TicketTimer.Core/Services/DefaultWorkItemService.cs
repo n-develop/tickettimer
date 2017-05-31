@@ -81,6 +81,13 @@ namespace TicketTimer.Core.Services
             }
         }
 
+        public void Clear()
+        {
+            _workItemStore.SetCurrent(WorkItem.Empty);
+            _workItemStore.ClearArchive();
+            Console.WriteLine("All tickets including the current work item are cleared.");
+        }
+
         private void PrintWorkItem(WorkItem workItem)
         {
             var comment = workItem.Comment;

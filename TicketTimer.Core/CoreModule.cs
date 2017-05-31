@@ -18,6 +18,7 @@ namespace TicketTimer.Core
             builder.RegisterType<StopCommand>().AsSelf();
             builder.RegisterType<StatusCommand>().AsSelf();
             builder.RegisterType<ShowCommand>().AsSelf();
+            builder.RegisterType<ClearCommand>().AsSelf();
 
             base.Load(builder);
         }

@@ -53,5 +53,11 @@ namespace TicketTimer.Core.Infrastructure
             GetState().CurrentWorkItem = workItem;
             Save();
         }
+
+        public void ClearArchive()
+        {
+            GetState().WorkItemArchive.Clear();
+            Save();
+        }
     }
 }
