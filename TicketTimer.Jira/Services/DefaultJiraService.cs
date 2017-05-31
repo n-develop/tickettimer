@@ -16,13 +16,16 @@ namespace TicketTimer.Jira.Services
             _workItemStore = workItemStore;
         }
 
-        public void WriteEntireArchive()
+        public async void WriteEntireArchive()
         {
             var archive = _workItemStore.GetState().WorkItemArchive;
             foreach (var workItem in archive)
             {
-                // TODO Check if work item is jira-item.
-                TrackTime(workItem);
+                var jiraIssue = await JiraClient.Issues.GetIssueAsync(workItem.TicketNumber);
+                if (jiraIssue != null)
+                {
+                    TrackTime(workItem);
+                }
             }
         }
 
