@@ -73,11 +73,18 @@ namespace TicketTimer.Core.Services
         public void ShowArchive()
         {
             var archive = _workItemStore.GetState().WorkItemArchive;
-            Console.WriteLine($"|{"Ticket",10}|{"Comment",40}|{"Duration",10}|");
-            Console.WriteLine(new string('-', 64));
-            foreach (var workItem in archive)
+            if (archive.Any())
             {
-                PrintWorkItem(workItem);
+                Console.WriteLine($"|{"Ticket",10}|{"Comment",40}|{"Duration",10}|");
+                Console.WriteLine(new string('-', 64));
+                foreach (var workItem in archive)
+                {
+                    PrintWorkItem(workItem);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No items in the archive.");
             }
         }
 
