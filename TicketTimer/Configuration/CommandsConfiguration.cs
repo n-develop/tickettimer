@@ -10,7 +10,7 @@ namespace TicketTimer.Configuration
     class CommandsConfiguration
     {
         // TODO remove "static" and make this a proper class
-        public static IList<ConsoleCommand> GetCommandsFromConfig(IContainer container)
+        public static List<ConsoleCommand> GetCommandsFromConfig(IContainer container)
         {
             var types = GetTypesFromConfiguration();
 
@@ -19,7 +19,7 @@ namespace TicketTimer.Configuration
             return commands;
         }
 
-        private static IList<ConsoleCommand> GetCommandsFromContainer(IContainer container, IEnumerable<Type> commandTypes)
+        private static List<ConsoleCommand> GetCommandsFromContainer(IContainer container, IEnumerable<Type> commandTypes)
         {
             var consoleCommands = new List<ConsoleCommand>();
             foreach (var type in commandTypes)
