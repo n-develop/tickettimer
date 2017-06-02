@@ -38,9 +38,11 @@ namespace TicketTimer.Jira.Services
 
         private void TrackTime(WorkItem workItem)
         {
-            var workLog = new Worklog(workItem.Duration.ToJiraFormat(), workItem.Started.Date, workItem.Comment);
-            Console.WriteLine($"Work item {workItem.TicketNumber} written. {workItem.Duration.ToJiraFormat()} on {workItem.Started.ToShortDateString()}");
-            //_jiraClient.Issues.AddWorklogAsync(workItem.TicketNumber, workLog);
+            var duration = workItem.Duration.RoundUp();
+            var workLog = new Worklog(duration.ToJiraFormat(), workItem.Started.Date, workItem.Comment);
+
+            _jiraClient.Issues.AddWorklogAsync(workItem.TicketNumber, workLog);
+            Console.WriteLine($"Work item {workItem.TicketNumber} written. {duration.ToJiraFormat()} on {workItem.Started.ToShortDateString()}");
         }
     }
 }
