@@ -1,7 +1,8 @@
 ﻿using System;
+using Autofac;
 using ManyConsole;
 using TicketTimer.Configuration;
-using TicketTimer.Core;
+using TicketTimer.Core.Commands;
 
 namespace TicketTimer
 {
@@ -13,7 +14,11 @@ namespace TicketTimer
 
             var commands = CommandsConfiguration.GetCommandsFromConfig(container);
 
-            commands.AddRange(ConsoleCommandDispatcher.FindCommandsInSameAssemblyAs(typeof(CoreModule)));
+            commands.Add(container.Resolve<StartCommand>());
+            commands.Add(container.Resolve<StopCommand>());
+            commands.Add(container.Resolve<ShowCommand>());
+            commands.Add(container.Resolve<StatusCommand>());
+            commands.Add(container.Resolve<ClearCommand>());
 
             return ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out);
         }
