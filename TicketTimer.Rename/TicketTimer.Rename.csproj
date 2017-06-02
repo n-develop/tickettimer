@@ -58,5 +58,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TicketTimer.Core\TicketTimer.Core.csproj">
+      <Project>{9EB0FB65-4079-42B8-9F49-95D4BA6660E5}</Project>
+      <Name>TicketTimer.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
