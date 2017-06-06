@@ -48,7 +48,7 @@ namespace TicketTimer.Core.Services
                 _workItemStore.AddToArchive(currentWorkItem);
                 _workItemStore.SetCurrent(WorkItem.Empty);
                 Console.WriteLine(
-                    $"Stopped work on ticket {currentWorkItem.TicketNumber} with comment '{currentWorkItem.Comment}' at '{currentWorkItem.Stopped.ToShortTimeString()}' after {currentWorkItem.Duration}");
+                    $"Stopped work on ticket {currentWorkItem.TicketNumber} with comment '{currentWorkItem.Comment}' at '{currentWorkItem.Stopped.ToShortTimeString()}' after {currentWorkItem.Duration.ToShortString()}");
             }
             else
             {
@@ -62,7 +62,7 @@ namespace TicketTimer.Core.Services
             if (currentWorkItem != WorkItem.Empty)
             {
                 var duration = _dateProvider.Now - currentWorkItem.Started;
-                Console.WriteLine($"You are working on {currentWorkItem.TicketNumber} ({currentWorkItem.Comment}) for {duration}");
+                Console.WriteLine($"You are working on {currentWorkItem.TicketNumber} ({currentWorkItem.Comment}) for {duration.ToShortString()}");
             }
             else
             {
