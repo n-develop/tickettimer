@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using Autofac;
 using ManyConsole;
 using TicketTimer.Configuration;
@@ -10,6 +12,8 @@ namespace TicketTimer
     {
         static int Main(string[] args)
         {
+            Environment.CurrentDirectory = GetCurrentDirectory();
+
             var container = AutofacConfig.ConfigureContainer();
 
             var commands = CommandsConfiguration.GetCommandsFromConfig(container);
@@ -21,6 +25,11 @@ namespace TicketTimer
             commands.Add(container.Resolve<ClearCommand>());
 
             return ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out);
+        }
+
+        private static string GetCurrentDirectory()
+        {
+            return new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)).LocalPath;
         }
     }
 }
