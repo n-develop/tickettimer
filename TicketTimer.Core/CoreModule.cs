@@ -9,7 +9,7 @@ namespace TicketTimer.Core
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<JsonWorkItemStore>().As<WorkItemStore>();
+            builder.RegisterType<JsonWorkItemStore>().As<WorkItemStore>().InstancePerLifetimeScope();
             builder.RegisterType<LocalFileStore>().As<FileStore>();
             builder.RegisterType<LocalDateProvider>().As<DateProvider>();
             builder.RegisterType<DefaultWorkItemService>().As<WorkItemService>();

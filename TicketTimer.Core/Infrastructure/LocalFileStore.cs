@@ -6,18 +6,19 @@ namespace TicketTimer.Core.Infrastructure
 {
     public class LocalFileStore : FileStore
     {
+        private static readonly string CurrentDirectory =
+            new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)).LocalPath;
+
         public void WriteFile(string fileContent, string fileName)
         {
-            // TODO make this look nicer.
-            var pathToExecutable = new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)).LocalPath;
-            File.WriteAllText(Path.Combine(pathToExecutable, fileName), fileContent);
+            var pathToFile = Path.Combine(CurrentDirectory, fileName);
+            File.WriteAllText(pathToFile, fileContent);
         }
 
-        // TODO this is called too often.
         public string ReadFile(string fileName)
         {
-            var pathToExecutable = new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)).LocalPath;
-            var statePath = Path.Combine(pathToExecutable, fileName);
+            var statePath = Path.Combine(CurrentDirectory, fileName);
+
             if (File.Exists(statePath))
             {
                 return File.ReadAllText(statePath);
