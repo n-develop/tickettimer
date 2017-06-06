@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Reflection;
 
 namespace TicketTimer.Core.Infrastructure
 {
@@ -6,14 +8,18 @@ namespace TicketTimer.Core.Infrastructure
     {
         public void WriteFile(string fileContent, string fileName)
         {
-            File.WriteAllText(fileName, fileContent);
+            var pathToExecutable = new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)).LocalPath;
+            File.WriteAllText(Path.Combine(pathToExecutable, fileName), fileContent);
         }
 
         public string ReadFile(string fileName)
         {
-            if (File.Exists(fileName))
+            var pathToExecutable = new Uri(Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase)).LocalPath;
+            var statePath = Path.Combine(pathToExecutable, fileName);
+            Console.WriteLine("Try to read " + statePath);
+            if (File.Exists(statePath))
             {
-                return File.ReadAllText(fileName);
+                return File.ReadAllText(statePath);
             }
             return string.Empty;
         }
