@@ -22,7 +22,7 @@ namespace TicketTimer.Core.Tests
             });
 
             var content = memoryFileStore.ReadFile("unimportant-file-name.txt");
-            var expected = "{\"CurrentWorkItem\":{\"TicketNumber\":\"- no ticket -\",\"Started\":\"0001-01-01T00:00:00\",\"Stopped\":\"0001-01-01T00:00:00\",\"Comment\":\"\"},\"WorkItemArchive\":[{\"TicketNumber\":\"BDP-1301\",\"Started\":\"2017-05-01T11:00:00\",\"Stopped\":\"2017-05-01T12:00:00\",\"Comment\":\"\"}]}";
+            var expected = "{\r\n  \"CurrentWorkItem\": {\r\n    \"TicketNumber\": \"- no ticket -\",\r\n    \"Started\": \"0001-01-01T00:00:00\",\r\n    \"Stopped\": \"0001-01-01T00:00:00\",\r\n    \"Comment\": \"\"\r\n  },\r\n  \"WorkItemArchive\": [\r\n    {\r\n      \"TicketNumber\": \"BDP-1301\",\r\n      \"Started\": \"2017-05-01T11:00:00\",\r\n      \"Stopped\": \"2017-05-01T12:00:00\",\r\n      \"Comment\": \"\"\r\n    }\r\n  ]\r\n}";
             Assert.Equal(expected, content);
         }
 
@@ -34,7 +34,7 @@ namespace TicketTimer.Core.Tests
             workItemStore.SetCurrent(WorkItem.Empty);
 
             var content = memoryFileStore.ReadFile("unimportant-file-name.txt");
-            var expected = "{\"CurrentWorkItem\":{\"TicketNumber\":\"- no ticket -\",\"Started\":\"0001-01-01T00:00:00\",\"Stopped\":\"0001-01-01T00:00:00\",\"Comment\":\"\"},\"WorkItemArchive\":[]}";
+            var expected = "{\r\n  \"CurrentWorkItem\": {\r\n    \"TicketNumber\": \"- no ticket -\",\r\n    \"Started\": \"0001-01-01T00:00:00\",\r\n    \"Stopped\": \"0001-01-01T00:00:00\",\r\n    \"Comment\": \"\"\r\n  },\r\n  \"WorkItemArchive\": []\r\n}";
             Assert.Equal(expected, content);
         }
 
@@ -58,12 +58,9 @@ namespace TicketTimer.Core.Tests
             });
 
             var content = memoryFileStore.ReadFile("unimportant-file-name.txt");
-            var expected = "{\"CurrentWorkItem\":{\"TicketNumber\":\"- no ticket -\",\"Started\":\"0001-01-01T00:00:00\",\"Stopped\":\"0001-01-01T00:00:00\",\"Comment\":\"\"},\"WorkItemArchive\":[";
-            expected +=
-                "{\"TicketNumber\":\"BDP-1301\",\"Started\":\"2017-05-01T11:00:00\",\"Stopped\":\"2017-05-01T12:00:00\",\"Comment\":\"\"}";
-            expected +=
-                ",{\"TicketNumber\":\"BDP-1302\",\"Started\":\"2017-05-02T13:00:00\",\"Stopped\":\"2017-05-02T14:00:00\",\"Comment\":\"abc\"}";
-            expected += "]}";
+            var expected =
+                "{\r\n  \"CurrentWorkItem\": {\r\n    \"TicketNumber\": \"- no ticket -\",\r\n    \"Started\": \"0001-01-01T00:00:00\",\r\n    \"Stopped\": \"0001-01-01T00:00:00\",\r\n    \"Comment\": \"\"\r\n  },\r\n  \"WorkItemArchive\": [\r\n    {\r\n      \"TicketNumber\": \"BDP-1301\",\r\n      \"Started\": \"2017-05-01T11:00:00\",\r\n      \"Stopped\": \"2017-05-01T12:00:00\",\r\n      \"Comment\": \"\"\r\n    },\r\n    {\r\n      \"TicketNumber\": \"BDP-1302\",\r\n      \"Started\": \"2017-05-02T13:00:00\",\r\n      \"Stopped\": \"2017-05-02T14:00:00\",\r\n      \"Comment\": \"abc\"\r\n    }\r\n  ]\r\n}";
+
             Assert.Equal(expected, content);
         }
     }
