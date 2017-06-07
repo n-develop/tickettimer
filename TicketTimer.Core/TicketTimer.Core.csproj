@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\ClearCommand.cs" />
+    <Compile Include="Commands\RenameCommand.cs" />
     <Compile Include="Commands\ShowCommand.cs" />
     <Compile Include="Commands\StartCommand.cs" />
     <Compile Include="Commands\StatusCommand.cs" />
@@ -67,7 +68,9 @@
     <Compile Include="Infrastructure\WorkItem.cs" />
     <Compile Include="Infrastructure\WorkItemStore.cs" />
     <Compile Include="Services\DateProvider.cs" />
+    <Compile Include="Services\DefaultRenameService.cs" />
     <Compile Include="Services\LocalDateProvider.cs" />
+    <Compile Include="Services\RenameService.cs" />
     <Compile Include="Services\WorkItemService.cs" />
     <Compile Include="Services\DefaultWorkItemService.cs" />
   </ItemGroup>

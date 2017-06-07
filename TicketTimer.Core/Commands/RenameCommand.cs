@@ -1,15 +1,17 @@
-﻿using System;
-using ManyConsole;
+﻿using ManyConsole;
+using TicketTimer.Core.Services;
 
-namespace TicketTimer.Rename.Commands
+namespace TicketTimer.Core.Commands
 {
     public class RenameCommand : ConsoleCommand
     {
+        private readonly RenameService _renameService;
         private string _oldName;
         private string _newName;
 
-        public RenameCommand()
+        public RenameCommand(RenameService renameService)
         {
+            _renameService = renameService;
             ConfigureCommand();
         }
 
@@ -22,8 +24,7 @@ namespace TicketTimer.Rename.Commands
 
         public override int Run(string[] remainingArguments)
         {
-            // TODO use RenameService here
-            Console.WriteLine($"You renamed it! {_oldName} -> {_newName}");
+            _renameService.RenameWorkItem(_oldName, _newName);
             return 0;
         }
     }

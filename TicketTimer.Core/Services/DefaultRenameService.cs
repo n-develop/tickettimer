@@ -1,7 +1,4 @@
-﻿using System;
-using TicketTimer.Core.Services;
-
-namespace TicketTimer.Rename
+﻿namespace TicketTimer.Core.Services
 {
     public class DefaultRenameService : RenameService
     {
@@ -13,7 +10,7 @@ namespace TicketTimer.Rename
         }
         public void RenameWorkItem(string currentTicketNumber, string newTicketNumber)
         {
-            throw new NotImplementedException();
+
         }
     }
 }

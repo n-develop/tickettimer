@@ -1,4 +1,4 @@
-﻿namespace TicketTimer.Rename
+﻿namespace TicketTimer.Core.Services
 {
     public interface RenameService
     {
