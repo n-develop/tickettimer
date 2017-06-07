@@ -13,7 +13,6 @@ namespace TicketTimer.Core
             builder.RegisterType<LocalFileStore>().As<FileStore>();
             builder.RegisterType<LocalDateProvider>().As<DateProvider>();
             builder.RegisterType<DefaultWorkItemService>().As<WorkItemService>();
-            builder.RegisterType<DefaultRenameService>().As<RenameService>();
 
             builder.RegisterType<StartCommand>().AsSelf();
             builder.RegisterType<StopCommand>().AsSelf();

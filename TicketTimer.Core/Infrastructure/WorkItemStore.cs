@@ -9,5 +9,7 @@
         void SetCurrent(WorkItem workItem);
 
         void ClearArchive();
+
+        void Save();
     }
 }

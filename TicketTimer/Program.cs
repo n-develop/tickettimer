@@ -23,6 +23,7 @@ namespace TicketTimer
             commands.Add(container.Resolve<ShowCommand>());
             commands.Add(container.Resolve<StatusCommand>());
             commands.Add(container.Resolve<ClearCommand>());
+            commands.Add(container.Resolve<RenameCommand>());
 
             return ConsoleCommandDispatcher.DispatchCommand(commands, args, Console.Out);
         }

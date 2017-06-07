@@ -29,7 +29,7 @@ namespace TicketTimer.Core.Infrastructure
             return _state;
         }
 
-        private void Save()
+        public void Save()
         {
             var json = JsonConvert.SerializeObject(_state);
             _fileStore.WriteFile(json, FileName);

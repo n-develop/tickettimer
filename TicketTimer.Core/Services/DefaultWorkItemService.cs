@@ -95,6 +95,23 @@ namespace TicketTimer.Core.Services
             Console.WriteLine("All tickets including the current work item are cleared.");
         }
 
+        public void Rename(string oldName, string newName)
+        {
+            var timerState = _workItemStore.GetState();
+
+            var archive = timerState.WorkItemArchive;
+            foreach (var workItem in archive.Where(item => item.TicketNumber == oldName))
+            {
+                workItem.TicketNumber = newName;
+            }
+
+            if (timerState.CurrentWorkItem.TicketNumber == oldName)
+            {
+                timerState.CurrentWorkItem.TicketNumber = newName;
+            }
+            _workItemStore.Save();
+        }
+
         private void PrintWorkItem(WorkItem workItem)
         {
             var comment = workItem.Comment;
@@ -105,5 +122,6 @@ namespace TicketTimer.Core.Services
             var duration = workItem.Duration.ToShortString();
             Console.WriteLine($"| {workItem.TicketNumber,-20} | {comment,-40} | {duration,10} |");
         }
+
     }
 }

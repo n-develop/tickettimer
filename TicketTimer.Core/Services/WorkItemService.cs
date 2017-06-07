@@ -9,5 +9,6 @@ namespace TicketTimer.Core.Services
         void ShowStatus();
         void ShowArchive();
         void Clear();
+        void Rename(string oldName, string newName);
     }
 }

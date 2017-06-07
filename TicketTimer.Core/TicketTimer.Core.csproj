@@ -68,9 +68,7 @@
     <Compile Include="Infrastructure\WorkItem.cs" />
     <Compile Include="Infrastructure\WorkItemStore.cs" />
     <Compile Include="Services\DateProvider.cs" />
-    <Compile Include="Services\DefaultRenameService.cs" />
     <Compile Include="Services\LocalDateProvider.cs" />
-    <Compile Include="Services\RenameService.cs" />
     <Compile Include="Services\WorkItemService.cs" />
     <Compile Include="Services\DefaultWorkItemService.cs" />
   </ItemGroup>

@@ -5,13 +5,13 @@ namespace TicketTimer.Core.Commands
 {
     public class RenameCommand : ConsoleCommand
     {
-        private readonly RenameService _renameService;
+        private readonly WorkItemService _workItemService;
         private string _oldName;
         private string _newName;
 
-        public RenameCommand(RenameService renameService)
+        public RenameCommand(WorkItemService workItemService)
         {
-            _renameService = renameService;
+            _workItemService = workItemService;
             ConfigureCommand();
         }
 
@@ -24,7 +24,7 @@ namespace TicketTimer.Core.Commands
 
         public override int Run(string[] remainingArguments)
         {
-            _renameService.RenameWorkItem(_oldName, _newName);
+            _workItemService.Rename(_oldName, _newName);
             return 0;
         }
     }
