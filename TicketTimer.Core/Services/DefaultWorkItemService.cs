@@ -75,8 +75,8 @@ namespace TicketTimer.Core.Services
             var archive = _workItemStore.GetState().WorkItemArchive;
             if (archive.Any())
             {
-                Console.WriteLine($"|{"Ticket",10}|{"Comment",40}|{"Duration",10}|");
-                Console.WriteLine(new string('-', 64));
+                Console.WriteLine($"|{"Ticket",20}|{"Comment",40}|{"Duration",10}|");
+                Console.WriteLine(new string('-', 74));
                 foreach (var workItem in archive)
                 {
                     PrintWorkItem(workItem);
@@ -103,7 +103,7 @@ namespace TicketTimer.Core.Services
                 comment = comment.Substring(0, 36) + "...";
             }
             var duration = workItem.Duration.ToShortString();
-            Console.WriteLine($"|{workItem.TicketNumber,10}|{comment,40}|{duration,10}|");
+            Console.WriteLine($"|{workItem.TicketNumber,20}|{comment,40}|{duration,10}|");
         }
     }
 }
