@@ -72,12 +72,11 @@ namespace TicketTimer.Core.Services
 
         public void ShowArchive()
         {
-            var consoleTable = new ConsoleTable();
             var archive = _workItemStore.GetState().WorkItemArchive;
 
             if (archive.Any())
             {
-                consoleTable.PrintTable(archive);
+                ConsoleTable.PrintTable(archive);
             }
             else
             {

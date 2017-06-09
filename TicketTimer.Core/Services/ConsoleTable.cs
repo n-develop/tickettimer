@@ -8,19 +8,15 @@ namespace TicketTimer.Core.Services
 {
     public class ConsoleTable
     {
-        private readonly string TableSeparatorLine = new string('-', 80);
+        private static readonly string TableSeparatorLine = new string('-', 80);
 
-        public ConsoleTable()
-        {
-        }
-
-        public void PrintTable(List<WorkItem> archive)
+        public static void PrintTable(List<WorkItem> archive)
         {
             PrintTableHeader();
             PrintTableBody(archive);
         }
 
-        private void PrintTableBody(List<WorkItem> archive)
+        private static void PrintTableBody(List<WorkItem> archive)
         {
             var itemsGroupedByDay = archive.GroupBy(item => item.Started.ToShortDateString());
             foreach (var grouping in itemsGroupedByDay)
@@ -34,7 +30,7 @@ namespace TicketTimer.Core.Services
 
         }
 
-        private void PrintSectionHeader(string sectionHeader)
+        private static void PrintSectionHeader(string sectionHeader)
         {
             Console.WriteLine(TableSeparatorLine);
             Console.WriteLine($"| {sectionHeader,-76} |");
@@ -42,12 +38,12 @@ namespace TicketTimer.Core.Services
 
         }
 
-        private void PrintTableHeader()
+        private static void PrintTableHeader()
         {
             Console.WriteLine($"| {"Ticket",-20} | {"Comment",-40} | {"Duration",10} |");
         }
 
-        private void PrintWorkItem(WorkItem workItem)
+        private static void PrintWorkItem(WorkItem workItem)
         {
             var comment = workItem.Comment;
             if (comment.Length > 40)
