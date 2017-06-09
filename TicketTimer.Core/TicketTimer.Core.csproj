@@ -67,6 +67,7 @@
     <Compile Include="Infrastructure\TimerState.cs" />
     <Compile Include="Infrastructure\WorkItem.cs" />
     <Compile Include="Infrastructure\WorkItemStore.cs" />
+    <Compile Include="Services\ConsoleTable.cs" />
     <Compile Include="Services\DateProvider.cs" />
     <Compile Include="Services\LocalDateProvider.cs" />
     <Compile Include="Services\WorkItemService.cs" />

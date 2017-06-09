@@ -72,21 +72,19 @@ namespace TicketTimer.Core.Services
 
         public void ShowArchive()
         {
+            var consoleTable = new ConsoleTable();
             var archive = _workItemStore.GetState().WorkItemArchive;
+
             if (archive.Any())
             {
-                Console.WriteLine($"| {"Ticket",-20} | {"Comment",-40} | {"Duration",10} |");
-                Console.WriteLine(new string('-', 80));
-                foreach (var workItem in archive)
-                {
-                    PrintWorkItem(workItem);
-                }
+                consoleTable.PrintTable(archive);
             }
             else
             {
                 Console.WriteLine("No items in the archive.");
             }
         }
+
 
         public void Clear()
         {
@@ -112,16 +110,7 @@ namespace TicketTimer.Core.Services
             _workItemStore.Save();
         }
 
-        private void PrintWorkItem(WorkItem workItem)
-        {
-            var comment = workItem.Comment;
-            if (comment.Length > 40)
-            {
-                comment = comment.Substring(0, 36) + "...";
-            }
-            var duration = workItem.Duration.ToShortString();
-            Console.WriteLine($"| {workItem.TicketNumber,-20} | {comment,-40} | {duration,10} |");
-        }
+
 
     }
 }
