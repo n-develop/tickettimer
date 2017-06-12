@@ -95,17 +95,23 @@ namespace TicketTimer.Core.Services
         public void Rename(string oldName, string newName)
         {
             var timerState = _workItemStore.GetState();
+            var counter = 0;
 
             var archive = timerState.WorkItemArchive;
             foreach (var workItem in archive.Where(item => item.TicketNumber == oldName))
             {
                 workItem.TicketNumber = newName;
+                counter++;
             }
 
             if (timerState.CurrentWorkItem.TicketNumber == oldName)
             {
                 timerState.CurrentWorkItem.TicketNumber = newName;
+                counter++;
             }
+
+            Console.WriteLine($"{counter} work items have been renamed from '{oldName}' to '{newName}'");
+
             _workItemStore.Save();
         }
 
