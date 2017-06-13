@@ -2,5 +2,6 @@
 {
     public interface YoutrackService
     {
+        void WriteEntireArchive();
     }
 }
