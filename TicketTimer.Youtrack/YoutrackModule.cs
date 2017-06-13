@@ -19,11 +19,11 @@ namespace TicketTimer.Youtrack
 
         private static void RegisterYoutrackClient(ContainerBuilder builder)
         {
-            var jiraUrl = ConfigurationManager.AppSettings["youtrackUrl"];
-            var jiraUser = ConfigurationManager.AppSettings["youtrackUser"];
-            var jiraPassword = ConfigurationManager.AppSettings["youtrackPassword"];
-            if (!string.IsNullOrEmpty(jiraUrl) && !string.IsNullOrEmpty(jiraUser) &&
-                !string.IsNullOrEmpty(jiraPassword))
+            var youtrackUrl = ConfigurationManager.AppSettings["youtrackUrl"];
+            var youtrackUser = ConfigurationManager.AppSettings["youtrackUser"];
+            var youtrackPassword = ConfigurationManager.AppSettings["youtrackPassword"];
+            if (!string.IsNullOrEmpty(youtrackUrl) && !string.IsNullOrEmpty(youtrackUser) &&
+                !string.IsNullOrEmpty(youtrackPassword))
             {
                 // TODO create and register client
             }
