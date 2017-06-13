@@ -2,6 +2,7 @@
 using Autofac;
 using TicketTimer.Youtrack.Commands;
 using TicketTimer.Youtrack.Services;
+using YouTrackSharp.Infrastructure;
 
 namespace TicketTimer.Youtrack
 {
@@ -21,11 +22,18 @@ namespace TicketTimer.Youtrack
         {
             var youtrackUrl = ConfigurationManager.AppSettings["youtrackUrl"];
             var youtrackUser = ConfigurationManager.AppSettings["youtrackUser"];
+            var youtrackPort = int.Parse(ConfigurationManager.AppSettings["youtrackPort"]);
             var youtrackPassword = ConfigurationManager.AppSettings["youtrackPassword"];
+
             if (!string.IsNullOrEmpty(youtrackUrl) && !string.IsNullOrEmpty(youtrackUser) &&
                 !string.IsNullOrEmpty(youtrackPassword))
             {
-                // TODO create and register client
+                builder.Register(c =>
+                {
+                    var connection = new Connection(youtrackUrl, youtrackPort, true);
+                    connection.Authenticate(youtrackUser, youtrackPassword);
+                    return connection;
+                }).As<IConnection>();
             }
         }
     }
