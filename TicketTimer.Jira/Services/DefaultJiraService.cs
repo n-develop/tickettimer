@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Atlassian.Jira;
 using TicketTimer.Core.Extensions;
 using TicketTimer.Core.Infrastructure;
@@ -20,6 +21,7 @@ namespace TicketTimer.Jira.Services
         public void WriteEntireArchive()
         {
             var archive = _workItemStore.GetState().WorkItemArchive;
+            var successfullyLogged = new List<string>();
             foreach (var workItem in archive)
             {
                 try
@@ -28,14 +30,26 @@ namespace TicketTimer.Jira.Services
                     if (jiraIssue != null)
                     {
                         TrackTime(workItem);
+                        if (!successfullyLogged.Contains(workItem.TicketNumber))
+                        {
+                            successfullyLogged.Add(workItem.TicketNumber);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{workItem.TicketNumber} is not a jira ticket.");
+
                     }
                 }
-                catch (Exception)
+                catch (Exception exception)
                 {
-                    Console.WriteLine($"{workItem.TicketNumber} is not a jira ticket.");
+                    Console.WriteLine($"{workItem.TicketNumber} could not be saved in Jira. Reason: '{exception.Message}'");
                 }
             }
+            _workItemStore.RemoveRangeFromArchive(successfullyLogged);
         }
+
+        
 
         private void TrackTime(WorkItem workItem)
         {

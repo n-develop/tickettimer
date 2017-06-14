@@ -1,4 +1,6 @@
-﻿namespace TicketTimer.Core.Infrastructure
+﻿using System.Collections.Generic;
+
+namespace TicketTimer.Core.Infrastructure
 {
     public interface WorkItemStore
     {
@@ -9,6 +11,10 @@
         void SetCurrent(WorkItem workItem);
 
         void ClearArchive();
+
+        void RemoveFromArchive(string ticketNumber);
+
+        void RemoveRangeFromArchive(IEnumerable<string> tickets);
 
         void Save();
     }

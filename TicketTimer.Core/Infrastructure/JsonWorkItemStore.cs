@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace TicketTimer.Core.Infrastructure
 {
@@ -27,6 +28,20 @@ namespace TicketTimer.Core.Infrastructure
                 Load();
             }
             return _state;
+        }
+
+        public void RemoveFromArchive(string ticketNumber)
+        {
+            GetState().WorkItemArchive.RemoveAll(wi => wi.TicketNumber == ticketNumber);
+            Save();
+        }
+
+        public void RemoveRangeFromArchive(IEnumerable<string> tickets)
+        {
+            foreach (var ticketNumber in tickets)
+            {
+                RemoveFromArchive(ticketNumber);
+            }
         }
 
         public void Save()
