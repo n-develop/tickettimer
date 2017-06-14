@@ -20,15 +20,5 @@ namespace TicketTimer.Jira.Extensions
 
             return jiraLog.ToString().Trim();
         }
-
-        public static TimeSpan RoundUp(this TimeSpan timeSpan)
-        {
-            var differenceFromStep = timeSpan.Minutes % 5;
-            if (differenceFromStep != 0)
-            {
-                return timeSpan.Add(new TimeSpan(0, 5 - differenceFromStep, 0));
-            }
-            return timeSpan;
-        }
     }
 }

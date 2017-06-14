@@ -1,5 +1,6 @@
 ﻿using System;
 using Atlassian.Jira;
+using TicketTimer.Core.Extensions;
 using TicketTimer.Core.Infrastructure;
 using TicketTimer.Jira.Extensions;
 
