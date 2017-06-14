@@ -11,9 +11,10 @@ namespace TicketTimer.Youtrack
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<DefaultYoutrackService>().As<YoutrackService>();
-            builder.RegisterType<YoutrackCommand>().AsSelf();
 
             RegisterYoutrackClient(builder);
+
+            builder.RegisterType<YoutrackCommand>().AsSelf();
 
             base.Load(builder);
         }
