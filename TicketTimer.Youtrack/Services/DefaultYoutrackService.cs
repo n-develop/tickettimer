@@ -1,16 +1,18 @@
 ﻿using System;
+using EasyHttp.Http;
+using TicketTimer.Core.Extensions;
 using TicketTimer.Core.Infrastructure;
-using YouTrackSharp.Infrastructure;
+using TicketTimer.Youtrack.Extensions;
 using YouTrackSharp.Issues;
 
 namespace TicketTimer.Youtrack.Services
 {
     public class DefaultYoutrackService : YoutrackService
     {
-        private readonly IConnection _connection;
+        private readonly CustomConnection _connection;
         private readonly WorkItemStore _workItemStore;
 
-        public DefaultYoutrackService(IConnection connection, WorkItemStore workItemStore)
+        public DefaultYoutrackService(CustomConnection connection, WorkItemStore workItemStore)
         {
             _connection = connection;
             _workItemStore = workItemStore;
@@ -30,16 +32,24 @@ namespace TicketTimer.Youtrack.Services
                         TrackTime(workItem);
                     }
                 }
-                catch (Exception)
+                catch (Exception exception)
                 {
-                    Console.WriteLine($"{workItem.TicketNumber} is not a YouTrack ticket.");
+                    Console.WriteLine($"{workItem.TicketNumber} could not be saved in Youtrack. Reason: '{exception.Message}'");
                 }
             }
         }
 
         private void TrackTime(WorkItem workItem)
         {
-            throw new NotImplementedException();
+            var xmlFormat = @"<workItem>
+                                <date>{0}</date>
+                                <duration>{1}</duration>
+                                <description>{2}</description>
+                            </workItem>";
+
+            var xmlData = string.Format(xmlFormat, workItem.Started.ToYoutrackDate(), (int)workItem.Duration.RoundUp().TotalMinutes, workItem.Comment);
+            _connection.Post($"issue/{workItem.TicketNumber}/timetracking/workitem", xmlData, HttpContentTypes.ApplicationXml, HttpContentTypes.ApplicationXml);
+
         }
 
         public Issue GetIssueById(string issueId)

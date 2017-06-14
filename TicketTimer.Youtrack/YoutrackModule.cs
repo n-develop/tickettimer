@@ -2,7 +2,6 @@
 using Autofac;
 using TicketTimer.Youtrack.Commands;
 using TicketTimer.Youtrack.Services;
-using YouTrackSharp.Infrastructure;
 
 namespace TicketTimer.Youtrack
 {
@@ -31,10 +30,10 @@ namespace TicketTimer.Youtrack
             {
                 builder.Register(c =>
                 {
-                    var connection = new Connection(youtrackUrl, youtrackPort, true);
+                    var connection = new CustomConnection(youtrackUrl, youtrackPort, true);
                     connection.Authenticate(youtrackUser, youtrackPassword);
                     return connection;
-                }).As<IConnection>();
+                }).As<CustomConnection>();
             }
         }
     }
