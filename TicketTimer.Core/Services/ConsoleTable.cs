@@ -14,6 +14,12 @@ namespace TicketTimer.Core.Services
         {
             PrintTableHeader();
             PrintTableBody(archive);
+            PrintTableFooter();
+        }
+
+        private static void PrintTableFooter()
+        {
+            Console.WriteLine(TableSeparatorLine);
         }
 
         private static void PrintTableBody(List<WorkItem> archive)
@@ -40,6 +46,7 @@ namespace TicketTimer.Core.Services
 
         private static void PrintTableHeader()
         {
+            Console.WriteLine(TableSeparatorLine);
             Console.WriteLine($"| {"Ticket",-20} | {"Comment",-40} | {"Duration",10} |");
         }
 
