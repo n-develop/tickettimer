@@ -18,12 +18,12 @@ namespace TicketTimer.Core.Extensions
             return value.ToString().PadLeft(2, '0');
         }
 
-        public static TimeSpan RoundUp(this TimeSpan timeSpan)
+        public static TimeSpan RoundUp(this TimeSpan timeSpan, int minutes)
         {
-            var differenceFromStep = timeSpan.Minutes % 5;
+            var differenceFromStep = timeSpan.Minutes % minutes;
             if (differenceFromStep != 0)
             {
-                return timeSpan.Add(new TimeSpan(0, 5 - differenceFromStep, 0));
+                return timeSpan.Add(new TimeSpan(0, minutes - differenceFromStep, 0));
             }
             return timeSpan;
         }

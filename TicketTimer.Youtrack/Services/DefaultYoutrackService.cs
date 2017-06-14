@@ -47,7 +47,7 @@ namespace TicketTimer.Youtrack.Services
                                 <description>{2}</description>
                             </workItem>";
 
-            var xmlData = string.Format(xmlFormat, workItem.Started.ToYoutrackDate(), (int)workItem.Duration.RoundUp().TotalMinutes, workItem.Comment);
+            var xmlData = string.Format(xmlFormat, workItem.Started.ToYoutrackDate(), (int)workItem.Duration.RoundUp(5).TotalMinutes, workItem.Comment);
             _connection.Post($"issue/{workItem.TicketNumber}/timetracking/workitem", xmlData, HttpContentTypes.ApplicationXml, HttpContentTypes.ApplicationXml);
 
         }

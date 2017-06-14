@@ -39,7 +39,7 @@ namespace TicketTimer.Jira.Services
 
         private void TrackTime(WorkItem workItem)
         {
-            var duration = workItem.Duration.RoundUp();
+            var duration = workItem.Duration.RoundUp(5);
             var workLog = new Worklog(duration.ToJiraFormat(), workItem.Started.Date, workItem.Comment);
 
             _jiraClient.Issues.AddWorklogAsync(workItem.TicketNumber, workLog);
