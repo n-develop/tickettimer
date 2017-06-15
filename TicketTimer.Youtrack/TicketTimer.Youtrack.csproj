@@ -64,6 +64,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CustomConnection.cs" />
     <Compile Include="Services\DefaultYoutrackService.cs" />
+    <Compile Include="Services\WorkItemAggregator.cs" />
     <Compile Include="Services\YoutrackService.cs" />
     <Compile Include="YoutrackModule.cs" />
   </ItemGroup>

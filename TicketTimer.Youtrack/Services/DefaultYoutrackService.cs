@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using EasyHttp.Http;
 using TicketTimer.Core.Extensions;
 using TicketTimer.Core.Infrastructure;
@@ -13,81 +12,54 @@ namespace TicketTimer.Youtrack.Services
     {
         private readonly CustomConnection _connection;
         private readonly WorkItemStore _workItemStore;
+        private readonly List<string> _successfullyLoggedItems;
 
         public DefaultYoutrackService(CustomConnection connection, WorkItemStore workItemStore)
         {
             _connection = connection;
             _workItemStore = workItemStore;
+            _successfullyLoggedItems = new List<string>();
         }
 
         public void WriteEntireArchive()
         {
             var archive = _workItemStore.GetState().WorkItemArchive;
-            var successfullyLogged = new List<string>();
+            var aggregatedWorkItems = WorkItemAggregator.AggregateWorkItems(archive);
+            _successfullyLoggedItems.Clear();
 
-            var itemsGroupedByDay = archive.GroupBy(item => item.Started.Date);
-            foreach (var itemsPerDay in itemsGroupedByDay)
+            foreach (var workItem in aggregatedWorkItems)
             {
-                var workItems = SumUpDurationsPerTicket(itemsPerDay);
-                foreach (var workItem in workItems)
-                {
-                    try
-                    {
-                        var youtrackIssue = GetIssueById(workItem.TicketNumber);
-                        if (youtrackIssue != null)
-                        {
-                            TrackTime(workItem);
-                            if (!successfullyLogged.Contains(workItem.TicketNumber))
-                            {
-                                successfullyLogged.Add(workItem.TicketNumber);
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine($"{workItem.TicketNumber} is not a Youtrack issue.");
-                        }
-                    }
-                    catch (Exception exception)
-                    {
-                        Console.WriteLine($"{workItem.TicketNumber} could not be saved in Youtrack. Reason: '{exception.Message}'");
-                    }
-
-                }
+                TrackTime(workItem);
             }
 
-            _workItemStore.RemoveRangeFromArchive(successfullyLogged);
-        }
-
-        private List<WorkItem> SumUpDurationsPerTicket(IGrouping<DateTime, WorkItem> workItems)
-        {
-            List<WorkItem> aggregates = new List<WorkItem>();
-            var perTicketNumber = workItems.GroupBy(wi => wi.TicketNumber);
-
-            foreach (var itemsPerTicket in perTicketNumber)
-            {
-                var aggretateItem = new WorkItem(itemsPerTicket.Key)
-                {
-                    Comment = string.Join(" | ", itemsPerTicket.Select(item => item.Comment).Distinct()),
-                    Started = workItems.Key,
-                    Duration = SumOf(itemsPerTicket.Select(item => item.Duration).ToList())
-                };
-                aggregates.Add(aggretateItem);
-            }
-
-            return aggregates;
-        }
-
-        private static TimeSpan SumOf(List<TimeSpan> durations)
-        {
-            var sum = durations.FirstOrDefault();
-            for (int i = 1; i < durations.Count; i++)
-            {
-                sum = sum + durations[i];
-            }
-            return sum;
+            _workItemStore.RemoveRangeFromArchive(_successfullyLoggedItems);
         }
 
         private void TrackTime(WorkItem workItem)
+        {
+            try
+            {
+                var youtrackIssue = GetIssueById(workItem.TicketNumber);
+                if (youtrackIssue != null)
+                {
+                    WriteTimeToYoutrack(workItem);
+                    if (!_successfullyLoggedItems.Contains(workItem.TicketNumber))
+                    {
+                        _successfullyLoggedItems.Add(workItem.TicketNumber);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"{workItem.TicketNumber} is not a Youtrack issue.");
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine($"{workItem.TicketNumber} could not be saved in Youtrack. Reason: '{exception.Message}'");
+            }
+        }
+
+        private void WriteTimeToYoutrack(WorkItem workItem)
         {
             var xmlFormat = @"<workItem>
                                 <date>{0}</date>
