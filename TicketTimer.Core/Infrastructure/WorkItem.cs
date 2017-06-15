@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace TicketTimer.Core.Infrastructure
 {
@@ -18,6 +18,7 @@ namespace TicketTimer.Core.Infrastructure
 
         public string Comment { get; set; }
 
+
         [JsonIgnore]
         public TimeSpan Duration
         {
@@ -29,6 +30,7 @@ namespace TicketTimer.Core.Infrastructure
                 }
                 throw new NotSupportedException("Inconsistent state of work item");
             }
+            set => Stopped = Started + value;
         }
 
         public static WorkItem Empty => new WorkItem("- no ticket -") { Comment = string.Empty };
