@@ -72,6 +72,7 @@
     <Compile Include="Services\LocalDateProvider.cs" />
     <Compile Include="Services\WorkItemService.cs" />
     <Compile Include="Services\DefaultWorkItemService.cs" />
+    <Compile Include="Utils\WorkItemAggregator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
