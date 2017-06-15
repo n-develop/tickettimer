@@ -29,7 +29,7 @@ namespace TicketTimer.Youtrack.Services
             foreach (var itemsPerDay in itemsGroupedByDay)
             {
                 var workItems = SumUpDurationsPerTicket(itemsPerDay);
-                foreach (var workItem in itemsPerDay)
+                foreach (var workItem in workItems)
                 {
                     try
                     {
@@ -80,7 +80,7 @@ namespace TicketTimer.Youtrack.Services
         private static TimeSpan SumOf(List<TimeSpan> durations)
         {
             var sum = durations.FirstOrDefault();
-            for (int i = 1; i < durations.Count(); i++)
+            for (int i = 1; i < durations.Count; i++)
             {
                 sum = sum + durations[i];
             }
