@@ -25,7 +25,7 @@ namespace TicketTimer.Core.Extensions
             {
                 return timeSpan.Add(new TimeSpan(0, minutes - differenceFromStep, 0));
             }
-            return timeSpan;
+            return timeSpan.Subtract(new TimeSpan(0, 0, 0, timeSpan.Seconds, timeSpan.Milliseconds));
         }
     }
 }
