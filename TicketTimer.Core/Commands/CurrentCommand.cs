@@ -1,14 +1,13 @@
-﻿using System;
-using ManyConsole;
+﻿using ManyConsole;
 using TicketTimer.Core.Services;
 
 namespace TicketTimer.Core.Commands
 {
-    public class StatusCommand : ConsoleCommand
+    public class CurrentCommand : ConsoleCommand
     {
         private readonly WorkItemService _workItemService;
 
-        public StatusCommand(WorkItemService workItemService)
+        public CurrentCommand(WorkItemService workItemService)
         {
             _workItemService = workItemService;
             ConfigureCommand();
@@ -16,12 +15,12 @@ namespace TicketTimer.Core.Commands
 
         private void ConfigureCommand()
         {
-            IsCommand("status", "Shows the current work item.");
+            IsCommand("current", "Shows the current work item.");
         }
 
         public override int Run(string[] remainingArguments)
         {
-            _workItemService.ShowStatus();
+            _workItemService.ShowCurrentWorkItem();
             return 0;
         }
     }

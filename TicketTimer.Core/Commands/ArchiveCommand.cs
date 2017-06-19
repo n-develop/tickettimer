@@ -3,11 +3,11 @@ using TicketTimer.Core.Services;
 
 namespace TicketTimer.Core.Commands
 {
-    public class ShowCommand : ConsoleCommand
+    public class ArchiveCommand : ConsoleCommand
     {
         private readonly WorkItemService _workItemService;
 
-        public ShowCommand(WorkItemService workItemService)
+        public ArchiveCommand(WorkItemService workItemService)
         {
             _workItemService = workItemService;
             ConfigureCommand();
@@ -15,7 +15,7 @@ namespace TicketTimer.Core.Commands
 
         private void ConfigureCommand()
         {
-            IsCommand("show", "Shows all unsaved work items.");
+            IsCommand("archive", "Shows all unsaved work items.");
         }
 
         public override int Run(string[] remainingArguments)

@@ -56,7 +56,7 @@ namespace TicketTimer.Core.Services
             }
         }
 
-        public void ShowStatus()
+        public void ShowCurrentWorkItem()
         {
             var currentWorkItem = _workItemStore.GetState().CurrentWorkItem;
             if (currentWorkItem != WorkItem.Empty)

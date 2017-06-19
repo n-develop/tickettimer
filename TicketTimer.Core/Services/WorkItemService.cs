@@ -6,7 +6,7 @@ namespace TicketTimer.Core.Services
     {
         void StartWorkItem(WorkItem workItem);
         void StopCurrentWorkItem();
-        void ShowStatus();
+        void ShowCurrentWorkItem();
         void ShowArchive();
         void Clear();
         void Rename(string oldName, string newName);

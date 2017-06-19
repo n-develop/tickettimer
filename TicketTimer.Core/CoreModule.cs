@@ -16,8 +16,8 @@ namespace TicketTimer.Core
 
             builder.RegisterType<StartCommand>().AsSelf();
             builder.RegisterType<StopCommand>().AsSelf();
-            builder.RegisterType<StatusCommand>().AsSelf();
-            builder.RegisterType<ShowCommand>().AsSelf();
+            builder.RegisterType<CurrentCommand>().AsSelf();
+            builder.RegisterType<ArchiveCommand>().AsSelf();
             builder.RegisterType<ClearCommand>().AsSelf();
             builder.RegisterType<RenameCommand>().AsSelf();
 
