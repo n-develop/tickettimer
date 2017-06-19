@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 using Atlassian.Jira;
 using TicketTimer.Core.Extensions;
 using TicketTimer.Core.Infrastructure;
@@ -10,6 +12,7 @@ namespace TicketTimer.Jira.Services
 {
     public class DefaultJiraService : JiraService
     {
+        private const string PrefixSettingName = "jiraIssuePrefix";
         private readonly WorkItemStore _workItemStore;
         private readonly Atlassian.Jira.Jira _jiraClient;
         private readonly List<string> _successfullyLoggedItems;
@@ -23,8 +26,13 @@ namespace TicketTimer.Jira.Services
 
         public void WriteEntireArchive()
         {
-            var archive = _workItemStore.GetState().WorkItemArchive;
-            var aggregatedWorkItems = WorkItemAggregator.AggregateWorkItems(archive);
+            var jiraIssues = _workItemStore.GetState().WorkItemArchive;
+            var prefixes = GetJiraIssuePrefixes();
+            if (prefixes != null && prefixes.Any())
+            {
+                jiraIssues = jiraIssues.Where(issue => prefixes.Any(prefix => issue.TicketNumber.StartsWith(prefix))).ToList();
+            }
+            var aggregatedWorkItems = WorkItemAggregator.AggregateWorkItems(jiraIssues);
             _successfullyLoggedItems.Clear();
 
             foreach (var workItem in aggregatedWorkItems)
@@ -67,6 +75,16 @@ namespace TicketTimer.Jira.Services
 
             _jiraClient.Issues.AddWorklogAsync(workItem.TicketNumber, workLog);
             Console.WriteLine($"Work item {workItem.TicketNumber} written. {duration.ToJiraFormat()} on {workItem.Started.ToShortDateString()}");
+        }
+
+        private List<string> GetJiraIssuePrefixes()
+        {
+            if (ConfigurationManager.AppSettings.AllKeys.Contains(PrefixSettingName))
+            {
+                var prefixSettings = ConfigurationManager.AppSettings[PrefixSettingName];
+                return prefixSettings.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            }
+            return new List<string>();
         }
     }
 }

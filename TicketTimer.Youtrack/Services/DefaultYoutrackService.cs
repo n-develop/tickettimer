@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 using EasyHttp.Http;
 using TicketTimer.Core.Extensions;
 using TicketTimer.Core.Infrastructure;
@@ -11,6 +13,8 @@ namespace TicketTimer.Youtrack.Services
 {
     public class DefaultYoutrackService : YoutrackService
     {
+        private const string PrefixSettingName = "youtrackIssuePrefix";
+
         private readonly CustomConnection _connection;
         private readonly WorkItemStore _workItemStore;
         private readonly List<string> _successfullyLoggedItems;
@@ -24,8 +28,13 @@ namespace TicketTimer.Youtrack.Services
 
         public void WriteEntireArchive()
         {
-            var archive = _workItemStore.GetState().WorkItemArchive;
-            var aggregatedWorkItems = WorkItemAggregator.AggregateWorkItems(archive);
+            var youtrackIssues = _workItemStore.GetState().WorkItemArchive;
+            var prefixes = GetYoutrackIssuePrefixes();
+            if (prefixes != null && prefixes.Any())
+            {
+                youtrackIssues = youtrackIssues.Where(issue => prefixes.Any(prefix => issue.TicketNumber.StartsWith(prefix))).ToList();
+            }
+            var aggregatedWorkItems = WorkItemAggregator.AggregateWorkItems(youtrackIssues);
             _successfullyLoggedItems.Clear();
 
             foreach (var workItem in aggregatedWorkItems)
@@ -81,6 +90,16 @@ namespace TicketTimer.Youtrack.Services
             var issuesManagement = new IssueManagement(_connection);
             var issue = issuesManagement.GetIssue(issueId);
             return issue;
+        }
+
+        private List<string> GetYoutrackIssuePrefixes()
+        {
+            if (ConfigurationManager.AppSettings.AllKeys.Contains(PrefixSettingName))
+            {
+                var prefixSettings = ConfigurationManager.AppSettings[PrefixSettingName];
+                return prefixSettings.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            }
+            return new List<string>();
         }
     }
 }
