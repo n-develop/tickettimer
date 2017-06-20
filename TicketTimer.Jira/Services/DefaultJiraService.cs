@@ -24,7 +24,7 @@ namespace TicketTimer.Jira.Services
             _successfullyLoggedItems = new List<string>();
         }
 
-        public void WriteEntireArchive()
+        public List<string> WriteEntireArchive()
         {
             var jiraIssues = _workItemStore.GetState().WorkItemArchive;
             var prefixes = GetJiraIssuePrefixes();
@@ -40,7 +40,7 @@ namespace TicketTimer.Jira.Services
                 TrackTime(workItem);
             }
 
-            _workItemStore.RemoveRangeFromArchive(_successfullyLoggedItems);
+            return _successfullyLoggedItems;
         }
 
         private void TrackTime(WorkItem workItem)

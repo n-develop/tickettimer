@@ -1,7 +1,9 @@
-﻿namespace TicketTimer.Jira.Services
+﻿using System.Collections.Generic;
+
+namespace TicketTimer.Jira.Services
 {
     public interface JiraService
     {
-        void WriteEntireArchive();
+        List<string> WriteEntireArchive();
     }
 }

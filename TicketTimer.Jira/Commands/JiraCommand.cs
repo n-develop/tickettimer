@@ -1,4 +1,5 @@
 ﻿using ManyConsole;
+using TicketTimer.Core.Infrastructure;
 using TicketTimer.Jira.Services;
 
 namespace TicketTimer.Jira.Commands
@@ -6,12 +7,14 @@ namespace TicketTimer.Jira.Commands
     public class JiraCommand : ConsoleCommand
     {
         private readonly JiraService _jiraService;
+        private readonly WorkItemStore _workItemStore;
 
         public bool KeepWorkItems { get; set; }
 
-        public JiraCommand(JiraService jiraService)
+        public JiraCommand(JiraService jiraService, WorkItemStore workItemStore)
         {
             _jiraService = jiraService;
+            _workItemStore = workItemStore;
             ConfigureCommand();
         }
 
@@ -23,8 +26,11 @@ namespace TicketTimer.Jira.Commands
 
         public override int Run(string[] remainingArguments)
         {
-            // TODO process new "keep" parameter.
-            _jiraService.WriteEntireArchive();
+            var successfullyLogged = _jiraService.WriteEntireArchive();
+            if (!KeepWorkItems)
+            {
+                _workItemStore.RemoveRangeFromArchive(successfullyLogged);
+            }
             return 0;
         }
     }
