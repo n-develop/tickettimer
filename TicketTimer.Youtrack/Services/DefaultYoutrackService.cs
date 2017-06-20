@@ -16,11 +16,13 @@ namespace TicketTimer.Youtrack.Services
         private const string PrefixSettingName = "youtrackIssuePrefix";
 
         private readonly CustomConnection _connection;
+        private readonly WorkItemStore _workItemStore;
         private readonly List<string> _successfullyLoggedItems;
 
-        public DefaultYoutrackService(CustomConnection connection)
+        public DefaultYoutrackService(CustomConnection connection, WorkItemStore workItemStore)
         {
             _connection = connection;
+            _workItemStore = workItemStore;
             _successfullyLoggedItems = new List<string>();
         }
 
