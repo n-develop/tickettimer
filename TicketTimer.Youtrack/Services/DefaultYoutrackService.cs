@@ -16,17 +16,15 @@ namespace TicketTimer.Youtrack.Services
         private const string PrefixSettingName = "youtrackIssuePrefix";
 
         private readonly CustomConnection _connection;
-        private readonly WorkItemStore _workItemStore;
         private readonly List<string> _successfullyLoggedItems;
 
-        public DefaultYoutrackService(CustomConnection connection, WorkItemStore workItemStore)
+        public DefaultYoutrackService(CustomConnection connection)
         {
             _connection = connection;
-            _workItemStore = workItemStore;
             _successfullyLoggedItems = new List<string>();
         }
 
-        public void WriteEntireArchive()
+        public List<string> WriteEntireArchive()
         {
             var youtrackIssues = _workItemStore.GetState().WorkItemArchive;
             var prefixes = GetYoutrackIssuePrefixes();
@@ -42,7 +40,7 @@ namespace TicketTimer.Youtrack.Services
                 TrackTime(workItem);
             }
 
-            _workItemStore.RemoveRangeFromArchive(_successfullyLoggedItems);
+            return _successfullyLoggedItems;
         }
 
         private void TrackTime(WorkItem workItem)

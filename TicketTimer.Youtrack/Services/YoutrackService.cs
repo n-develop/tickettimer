@@ -1,7 +1,9 @@
-﻿namespace TicketTimer.Youtrack.Services
+﻿using System.Collections.Generic;
+
+namespace TicketTimer.Youtrack.Services
 {
     public interface YoutrackService
     {
-        void WriteEntireArchive();
+        List<string> WriteEntireArchive();
     }
 }
