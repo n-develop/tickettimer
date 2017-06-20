@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\YoutrackAggregateCommand.cs" />
     <Compile Include="Commands\YoutrackCommand.cs" />
     <Compile Include="Extensions\YoutrackDate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

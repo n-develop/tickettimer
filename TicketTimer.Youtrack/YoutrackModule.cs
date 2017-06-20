@@ -14,6 +14,7 @@ namespace TicketTimer.Youtrack
             RegisterYoutrackClient(builder);
 
             builder.RegisterType<YoutrackCommand>().AsSelf();
+            builder.RegisterType<YoutrackAggregateCommand>().AsSelf();
 
             base.Load(builder);
         }

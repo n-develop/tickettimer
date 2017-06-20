@@ -21,7 +21,7 @@ namespace TicketTimer.Youtrack.Commands
         private void ConfigureCommand()
         {
             IsCommand("youtrack", "Log time for all saved YouTrack-tickets");
-            HasOption("k|keep:", "Keep work items", k => KeepWorkItems = k != null);
+            HasOption("k|keep:", "Do not delete work items afterwards", k => KeepWorkItems = k != null);
         }
 
         public override int Run(string[] remainingArguments)

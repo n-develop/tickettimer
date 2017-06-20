@@ -14,6 +14,7 @@ namespace TicketTimer.Youtrack.Services
     public class DefaultYoutrackService : YoutrackService
     {
         private const string PrefixSettingName = "youtrackIssuePrefix";
+        private const string AggregatePrefixSettingName = "youtrackAggregatePrefix";
 
         private readonly CustomConnection _connection;
         private readonly WorkItemStore _workItemStore;
@@ -28,12 +29,14 @@ namespace TicketTimer.Youtrack.Services
 
         public List<string> WriteEntireArchive()
         {
-            var youtrackIssues = _workItemStore.GetState().WorkItemArchive;
             var prefixes = GetYoutrackIssuePrefixes();
+
+            var youtrackIssues = _workItemStore.GetState().WorkItemArchive;
             if (prefixes != null && prefixes.Any())
             {
                 youtrackIssues = youtrackIssues.Where(issue => prefixes.Any(prefix => issue.TicketNumber.StartsWith(prefix))).ToList();
             }
+
             var aggregatedWorkItems = WorkItemAggregator.AggregateWorkItems(youtrackIssues);
             _successfullyLoggedItems.Clear();
 
@@ -43,6 +46,35 @@ namespace TicketTimer.Youtrack.Services
             }
 
             return _successfullyLoggedItems;
+        }
+
+        public void WriteAggregate(string targetTicket)
+        {
+            var prefixes = GetYoutrackAggregatePrefixes();
+            if (prefixes == null || !prefixes.Any())
+            {
+                Console.WriteLine("No prefixes for aggregation specified.");
+                return;
+            }
+
+            var youtrackIssues = _workItemStore.GetState().WorkItemArchive;
+            youtrackIssues = youtrackIssues.Where(issue => prefixes.Any(prefix => issue.TicketNumber.StartsWith(prefix))).ToList();
+
+            var aggregatesPerDay = WorkItemAggregator.AggregateToSingleWorkItemPerDay(youtrackIssues, targetTicket);
+
+            if (aggregatesPerDay == null || !aggregatesPerDay.Any())
+            {
+                Console.WriteLine("No aggregates to process.");
+                return;
+            }
+
+            _successfullyLoggedItems.Clear();
+
+            foreach (var workItem in aggregatesPerDay)
+            {
+                TrackTime(workItem);
+            }
+
         }
 
         private void TrackTime(WorkItem workItem)
@@ -92,12 +124,22 @@ namespace TicketTimer.Youtrack.Services
             return issue;
         }
 
+        private List<string> GetYoutrackAggregatePrefixes()
+        {
+            return GetListFromSettings(AggregatePrefixSettingName);
+        }
+
         private List<string> GetYoutrackIssuePrefixes()
         {
-            if (ConfigurationManager.AppSettings.AllKeys.Contains(PrefixSettingName))
+            return GetListFromSettings(PrefixSettingName);
+        }
+
+        private List<string> GetListFromSettings(string settingsName)
+        {
+            if (ConfigurationManager.AppSettings.AllKeys.Contains(settingsName))
             {
-                var prefixSettings = ConfigurationManager.AppSettings[PrefixSettingName];
-                return prefixSettings.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                var settings = ConfigurationManager.AppSettings[settingsName];
+                return settings.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
             }
             return new List<string>();
         }

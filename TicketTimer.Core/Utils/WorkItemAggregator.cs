@@ -43,5 +43,20 @@ namespace TicketTimer.Core.Utils
             }
             return sum;
         }
+
+        public static List<WorkItem> AggregateToSingleWorkItemPerDay(List<WorkItem> archive, string ticketNumber)
+        {
+            var itemsGroupedByDay = archive.GroupBy(item => item.Started.Date);
+
+            var aggregates = itemsGroupedByDay.Select(itemsPerDay => new WorkItem(ticketNumber)
+            {
+                Comment = string.Join(" | ", itemsPerDay.Select(item => item.TicketNumber).Distinct()),
+                Started = itemsPerDay.Key,
+                Duration = SumOf(itemsPerDay.Select(item => item.Duration).ToList())
+            })
+                .ToList();
+
+            return aggregates;
+        }
     }
 }

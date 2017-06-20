@@ -21,7 +21,7 @@ namespace TicketTimer.Jira.Commands
         private void ConfigureCommand()
         {
             IsCommand("jira", "Log time for all saved Jira-tickets");
-            HasOption("k|keep:", "Keep work items after transfer", k => KeepWorkItems = k != null);
+            HasOption("k|keep:", "Do not delete work items afterwards", k => KeepWorkItems = k != null);
         }
 
         public override int Run(string[] remainingArguments)
