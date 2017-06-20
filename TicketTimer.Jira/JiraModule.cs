@@ -10,7 +10,7 @@ namespace TicketTimer.Jira
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<DefaultJiraService>().As<JiraService>();
-            builder.RegisterType<SendToJiraCommand>().AsSelf();
+            builder.RegisterType<JiraCommand>().AsSelf();
 
             RegisterJiraClient(builder);
 

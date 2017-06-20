@@ -59,7 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\SendToJiraCommand.cs" />
+    <Compile Include="Commands\JiraCommand.cs" />
     <Compile Include="Extensions\TimeSpanExtensions.cs" />
     <Compile Include="JiraModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
