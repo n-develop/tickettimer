@@ -52,7 +52,7 @@ namespace TicketTimer.Core.Services
 
         private static void PrintWorkItem(WorkItem workItem)
         {
-            var comment = workItem.Comment;
+            var comment = workItem.Comment ?? "";
             if (comment.Length > 40)
             {
                 comment = comment.Substring(0, 36) + "...";

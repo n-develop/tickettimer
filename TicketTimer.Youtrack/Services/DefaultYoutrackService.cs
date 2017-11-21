@@ -15,6 +15,7 @@ namespace TicketTimer.Youtrack.Services
     {
         private const string PrefixSettingName = "youtrackIssuePrefix";
         private const string AggregatePrefixSettingName = "youtrackAggregatePrefix";
+        private const string AggregateTicketSettingName = "youtrackAggregateTicket";
 
         private readonly CustomConnection _connection;
         private readonly WorkItemStore _workItemStore;
@@ -48,8 +49,9 @@ namespace TicketTimer.Youtrack.Services
             return _successfullyLoggedItems;
         }
 
-        public void WriteAggregate(string targetTicket)
+        public void WriteAggregate()
         {
+            var targetTicket = GetAggregateTicket();
             var prefixes = GetYoutrackAggregatePrefixes();
             if (prefixes == null || !prefixes.Any())
             {
@@ -134,6 +136,11 @@ namespace TicketTimer.Youtrack.Services
             return GetListFromSettings(PrefixSettingName);
         }
 
+        private string GetAggregateTicket()
+        {
+            return GetSetting(AggregateTicketSettingName);
+        }
+
         private List<string> GetListFromSettings(string settingsName)
         {
             if (ConfigurationManager.AppSettings.AllKeys.Contains(settingsName))
@@ -142,6 +149,16 @@ namespace TicketTimer.Youtrack.Services
                 return settings.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
             }
             return new List<string>();
+        }
+
+        private string GetSetting(string settingsName)
+        {
+            if (ConfigurationManager.AppSettings.AllKeys.Contains(settingsName))
+            {
+                var settings = ConfigurationManager.AppSettings[settingsName];
+                return settings;
+            }
+            return string.Empty;
         }
     }
 }
